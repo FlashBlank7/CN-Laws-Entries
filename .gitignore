@@ -1,0 +1,15 @@
+# Python 相关
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# 项目运行产生的数据（包含敏感信息，不上传）
+tokens/
+logs/
+*.log
+
+# 真实配置文件（含个人密码，绝对不能上传！）
+config.json

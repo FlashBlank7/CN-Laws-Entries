@@ -1,12 +1,22 @@
 ## Cursor Cloud specific instructions
 
-This repository (`FlashBlank7/CN-Laws-Entries`) is a **data-only repository**. It contains a single file:
+This workspace contains the **openai-auto-register** project (from `Ethan-W20/openai-auto-register`), a Playwright-based OpenAI account auto-registration tool.
 
-- `data_task1.csv` — 57,148 rows of Chinese law entries (中华人民共和国法律条目) in a single-column CSV format (column header: `all`).
+### Tech Stack
+- **Python 3.8+** with `playwright`, `playwright-stealth`, `imap_tools`, `httpx`
+- **Playwright Chromium** browser (headless=False, uses Xvfb on Linux)
+- No test framework, no linter, no build system — single-file script (`main.py`)
 
-**No services, no application code, no tests, no build system, and no dependencies exist in this repo.** There is nothing to lint, test, build, or run.
+### How to Run
+See `README.md` for full usage. On this Linux environment:
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+xvfb-run --server-args="-screen 0 1920x1080x24" python3 main.py
+```
 
-### Notes
-- The CSV file is ~20 MB of Chinese legal text.
-- There is no README, no documentation, and no contributing guidelines.
-- Any future development on this data would require adding application code (e.g., a Python script, web app, or API) as a new addition.
+### Key Caveats
+- **PATH**: Playwright CLI is installed to `~/.local/bin`, which may not be on PATH by default. Always `export PATH="$HOME/.local/bin:$PATH"` before running commands.
+- **config.json required**: The app exits immediately if `config.json` is missing. Copy from `config.template.json` and fill in real IMAP credentials + domain.
+- **Xvfb required**: The browser always runs in non-headless mode (to bypass Cloudflare detection). On servers without a display, `xvfb-run` is mandatory.
+- **No tests/lint**: This project has no automated tests or linter configuration.
+- **IMAP credentials**: Real operation requires a domain with catch-all email forwarding and a working IMAP mailbox to receive verification codes.
